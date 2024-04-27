@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  db:
+    image: postgres
+    ports:
+      - 5432:5432
+    volumes:
+      - ./scripts:/docker-entrypoint-initdb.d
+    environment:
+      - POSTGRES_PASSWORD=root
+    networks:
+      - coffee-blog
+
+  api:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/coffee-blog-api/
+    ports:
+      - 8000:8000
+    environment:
+      - DJANGO_DB_NAME=coffeeblogdb
+      - DJANGO_DB_USER=postgres
+      - DJANGO_DB_PASSWORD=root
+      - DJANGO_DB_HOST=db
+      - DJANGO_DB_PORT=5432
+    depends_on:
+      - db
+    networks:
+      - coffee-blog
+
+networks:
+  coffee-blog:
+    external: true
