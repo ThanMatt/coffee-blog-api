@@ -26,7 +26,10 @@ SECRET_KEY = 'django-insecure-ynf3=d!%&ju7_ynnoh6e622i7h=pj#)-0qqsri^$-y)*zi9e5t
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['api', 'localhost']
+CORS_ORIGIN_ALLOW_ALL = True
+ALLOWED_HOSTS = ['*']
+CORS_ALLOW_CREDENTIALS = False
+CORS_ALLOW_HEADERS = ['*']
 
 
 # Application definition
@@ -41,9 +44,11 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework',
     'django_filters',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -72,7 +77,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'coffee_blog_api.wsgi.application'
-
 
 # Database
 # https://docs.djangoproject.com/en/5.0/ref/settings/#databases
