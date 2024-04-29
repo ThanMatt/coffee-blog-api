@@ -5,9 +5,9 @@ ENV PYTHONUNBUFFERED 1
 
 WORKDIR /coffee-blog-api
 
-RUN apt-get update \
-  && apt-get -y install gcc \
-  && apt-get clean
+# RUN apt-get update \
+#   && apt-get -y install gcc \
+#   && apt-get clean
 
 COPY ./requirements.txt /coffee-blog-api/
 RUN pip install --upgrade pip
